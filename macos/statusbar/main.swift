@@ -2,27 +2,28 @@
 
 import Cocoa
 
-class StatusApp : NSObject {
-    func display() {
+public class StatusApp {
+    public func display() {
         let statusbar = NSStatusBar.system()
         
         let statusItem = statusbar.statusItem(withLength:NSVariableStatusItemLength)
         statusItem.title = "Demo"
-        statusItem.toolTip = "Demo"
+        statusItem.toolTip = "Demo app"
         
         let menu = NSMenu()
         
         let quitMenuItem = NSMenuItem()
         quitMenuItem.title = "Quit"
-        quitMenuItem.action = #selector(NSApp.terminate)
+        quitMenuItem.target = self
+        quitMenuItem.action = #selector(quit(_:))
 
         menu.addItem(quitMenuItem)
 
         statusItem.menu = menu
     }
     
-    func quit(sender:NSMenuItem) {
-        NSApplication.shared().terminate(self)
+    @objc public func quit(_ sender:Any?) {
+        NSApp.terminate(self)
     }
 }
 
